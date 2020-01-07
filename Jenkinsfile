@@ -15,12 +15,13 @@ def exclude = ["/home/oleg/.cache",
                "/home/oleg/src/guix-wip-channels",
                "/home/oleg/src/macos-simple-kvm"].collect{"--exclude $it"}.join(" ")
 
+def source = ["/home/oleg", "/etc"].join(" ")
+
 pipeline {
     agent { label "master" }
     environment {
         RESTIC_PASSWORD = credentials("RESTIC_PASSWORD")
         RESTIC = "/home/oleg/.guix-profile/bin/restic"
-        SOURCE = "/home/oleg"
     }
     stages {
         stage("Backup master") {
@@ -28,7 +29,7 @@ pipeline {
             steps {
                 sh (["sudo", "--login", "--preserve-env=RESTIC_PASSWORD",
                      RESTIC, "--repo", "/srv/backup/guixsd",
-                     exclude, "backup", SOURCE].join(" "))
+                     exclude, "backup", source].join(" "))
             }
         }
         stage("Backup workstation") {
@@ -36,7 +37,7 @@ pipeline {
             steps {
                 sh (["sudo", "--login", "--preserve-env=RESTIC_PASSWORD",
                      RESTIC, "--repo", "sftp:backup.guix.duckdns.org:/srv/backup/majordomo",
-                     exclude, "backup", SOURCE].join(" "))
+                     exclude, "backup", source].join(" "))
             }
         }
     }
