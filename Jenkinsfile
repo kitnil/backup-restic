@@ -40,6 +40,15 @@ pipeline {
                      exclude, "backup", source].join(" "))
             }
         }
+        stage("Backup spb") {
+            agent { label "spb" }
+            steps {
+                sh (["sudo", "--login", "--preserve-env=RESTIC_PASSWORD",
+                     RESTIC, "--repo", "sftp:backup.guix.duckdns.org:/srv/backup/spb",
+                     exclude, "--exclude", "/root/.cache",
+                     "backup", "/home/oleg", "/root", "/etc"].join(" "))
+            }
+        }
     }
     post {
         always {
