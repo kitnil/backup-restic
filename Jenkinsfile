@@ -4,6 +4,9 @@ def source = ["/home/oleg", "/etc", "/root"].join(" ")
 
 pipeline {
     agent { label "master" }
+    triggers {
+        cron("0 20 * * *")
+    }
     environment {
         RESTIC_PASSWORD = credentials("RESTIC_PASSWORD")
         RESTIC = "/home/oleg/.guix-profile/bin/restic"
