@@ -1,4 +1,4 @@
-def exclude = resticExclude users: ["root", "oleg"]
+def exclude = resticExclude users: ["root", "oleg"], dirs: ["/var/lib/znc/moddata"]
 
 def source = ["/home/oleg", "/etc", "/root"].join(" ")
 
@@ -24,8 +24,7 @@ pipeline {
                     steps {
                         sh (["sudo", "--login", "--preserve-env=RESTIC_PASSWORD",
                              RESTIC, "--repo", "sftp:backup.guix.duckdns.org:/srv/backup/spb",
-                             exclude, "--exclude", "/root/.cache",
-                             "backup", "/home/oleg", "/root", "/etc"].join(" "))
+                             exclude, "backup", "/home/oleg", "/root", "/etc"].join(" "))
                     }
                 }
                 stage("Backup oracle") {
@@ -44,10 +43,7 @@ pipeline {
                              "--volume", "/var/lib/bitlbee:/var/lib/bitlbee",
                              "localhost:5000/restic:latest",
                              "restic", "--repo", "sftp:backup.guix.duckdns.org:/srv/backup/oracle",
-                             "--exclude", "/home/oleg/.cache",
-                             "--exclude", "/root/.cache",
-                             "--exclude", "/var/lib/znc/moddata",
-                             "backup", "/home/oleg", "/root", "/var/lib/znc", "/var/lib/bitlbee"].join(" "))
+                             exclude, "backup", "/home/oleg", "/root", "/var/lib/znc", "/var/lib/bitlbee"].join(" "))
                     }
                 }
             }
