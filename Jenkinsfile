@@ -1,6 +1,5 @@
 def exclude = ["/home/oleg/.cache",
                "/home/oleg/Downloads",
-               "/home/oleg/Downloads",
                "/home/oleg/GNS3/images",
                "/home/oleg/GNS3/projects",
                "/home/oleg/archive/src",
