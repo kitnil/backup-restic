@@ -48,8 +48,6 @@ pipeline {
                              "--security-opt", "label:disable",
                              "--rm",
                              "--name", "restic",
-                             "--interactive",
-                             "--tty",
                              "--env", "RESTIC_PASSWORD=${RESTIC_PASSWORD}",
                              "--volume", "/home/oleg:/home/oleg",
                              "--volume", "/root:/root",
