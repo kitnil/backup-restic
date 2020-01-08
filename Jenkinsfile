@@ -1,16 +1,4 @@
-def exclude = [
-    "/root/.cache",
-    "/home/oleg/.cache",
-    "/home/oleg/.guix-profile",
-    "/home/oleg/.nix-profile",
-    "/home/oleg/Downloads",
-    "/home/oleg/GNS3",
-    "/home/oleg/Videos",
-    "/home/oleg/archive",
-    "/home/oleg/majordomo",
-    "/home/oleg/src",
-    "/home/oleg/vm",
-].collect{"--exclude $it"}.join(" ")
+def exclude = resticExclude users: ["root", "oleg"]
 
 def source = ["/home/oleg", "/etc", "/root"].join(" ")
 
