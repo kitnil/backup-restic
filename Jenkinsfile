@@ -1,18 +1,15 @@
-def exclude = ["/home/oleg/.cache",
-               "/home/oleg/Downloads",
-               "/home/oleg/GNS3/images",
-               "/home/oleg/GNS3/projects",
-               "/home/oleg/archive/src",
-               "/home/oleg/src/replicant",
-               "/home/oleg/vm",
-               "/home/oleg/Videos",
-               "/home/oleg/.guix-profile",
-               "/home/oleg/.nix-profile",
-               "/home/oleg/src/guix",
-               "/home/oleg/src/guix-wip-forge",
-               "/home/oleg/src/guix-wip-origin",
-               "/home/oleg/src/guix-wip-channels",
-               "/home/oleg/src/macos-simple-kvm"].collect{"--exclude $it"}.join(" ")
+def exclude = [
+    "/home/oleg/.cache",
+    "/home/oleg/.guix-profile",
+    "/home/oleg/.nix-profile",
+    "/home/oleg/Downloads",
+    "/home/oleg/GNS3",
+    "/home/oleg/Videos",
+    "/home/oleg/archive",
+    "/home/oleg/majordomo",
+    "/home/oleg/src",
+    "/home/oleg/vm",
+].collect{"--exclude $it"}.join(" ")
 
 def source = ["/home/oleg", "/etc"].join(" ")
 
