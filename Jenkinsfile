@@ -1,4 +1,5 @@
 def exclude = [
+    "/root/.cache",
     "/home/oleg/.cache",
     "/home/oleg/.guix-profile",
     "/home/oleg/.nix-profile",
@@ -11,7 +12,7 @@ def exclude = [
     "/home/oleg/vm",
 ].collect{"--exclude $it"}.join(" ")
 
-def source = ["/home/oleg", "/etc"].join(" ")
+def source = ["/home/oleg", "/etc", "/root"].join(" ")
 
 pipeline {
     agent { label "master" }
