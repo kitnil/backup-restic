@@ -20,14 +20,6 @@ pipeline {
         RESTIC = "/home/oleg/.guix-profile/bin/restic"
     }
     stages {
-        stage("Backup master") {
-            agent { label "master" }
-            steps {
-                sh (["sudo", "--login", "--preserve-env=RESTIC_PASSWORD",
-                     RESTIC, "--repo", "/srv/backup/guixsd",
-                     exclude, "backup", source].join(" "))
-            }
-        }
         parallel {
             stage("Backup workstation") {
                 agent { label "workstation" }
@@ -69,6 +61,14 @@ pipeline {
                          "--exclude", "/var/lib/znc/moddata",
                          "backup", "/home/oleg", "/root", "/var/lib/znc", "/var/lib/bitlbee"].join(" "))
                 }
+            }
+        }
+        stage("Backup master") {
+            agent { label "master" }
+            steps {
+                sh (["sudo", "--login", "--preserve-env=RESTIC_PASSWORD",
+                     RESTIC, "--repo", "/srv/backup/guixsd",
+                     exclude, "backup", source].join(" "))
             }
         }
     }
